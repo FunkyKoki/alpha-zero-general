@@ -6,7 +6,8 @@ class Board():
     def __init__(self, n=5):
         "Set up initial board configuration."
         self.n = n
-        self.pieces = np.zeros((2*n+1, n+1))
+        self.pieces = np.zeros((2*n+1, n+1))  # 为什么是2*n+1？好吧，看了一下棋盘，的确应该是2*n+1，但是现在我反而更懵逼了，如何表示dots and boxes里面的每一条线呢？
+        # 我已经知道了，hhhh
 
     # add [][] indexer syntax to the Board
     def __getitem__(self, index): 
@@ -14,11 +15,11 @@ class Board():
 
     def increase_score(self, score, player):
         if player == 1:
-            self.pieces[0, -1] += score
+            self.pieces[0, -1] += score  # 多出来的一列拿来做别的用处可还行
         else:
             self.pieces[1, -1] += score
 
-    def is_pass_on(self):
+    def is_pass_on(self):  # 空过？
         return self.pieces[2, -1]
 
     def toggle_pass(self, state=False):
@@ -28,7 +29,7 @@ class Board():
         """Returns all the legal moves
         @param color not used and came from previous version.
         """
-        legal_moves = np.logical_not(self.pieces)
+        legal_moves = np.logical_not(self.pieces)  # 0所在的位置是legal的
         legal_moves = np.hstack((legal_moves[:self.n+1, :-1].flatten(), legal_moves[-self.n:, :].flatten(), False))
         if self.is_pass_on():
             legal_moves[:] = False
@@ -37,7 +38,7 @@ class Board():
 
     def has_legal_moves(self):
         is_board_full = np.all(self.pieces[:self.n+1, :-1]) and np.all(self.pieces[-self.n:, :])
-        return not is_board_full
+        return not is_board_full  # 逻辑，逻辑
 
     def execute_move(self, action, color=1):
         """Perform the given move on the board; 
@@ -60,6 +61,7 @@ class Board():
 
         # Need to check if we have closed a square
         # If so, increase score and mark pass
+        # 这里判断的方法还是比较巧妙的，画一下图就很清楚其思路了
         horizontal = np.zeros((self.n+3, self.n+2))
         horizontal[1:-1, 1:-1] = self.pieces[:self.n+1, :self.n]
 

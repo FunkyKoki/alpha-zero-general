@@ -21,7 +21,7 @@ class DotsAndBoxesGame(Game):
 
     def getActionSize(self):
         # return number of actions
-        return 2 * (self.n + 1) * self.n + 1
+        return 2 * (self.n + 1) * self.n + 1  # 多加的1就是为了pass on
 
     def getNextState(self, board, player, action):
         # if player takes action on board, return next (board,player)
@@ -29,7 +29,7 @@ class DotsAndBoxesGame(Game):
         b = Board(self.n)
         b.pieces = np.copy(board)
 
-        if action == self.getActionSize() - 1:
+        if action == self.getActionSize() - 1:  # 这里是由于action是从0开始的，所以减一
             b.pieces[2, -1] = 0
         else:
             b.execute_move(action, player)
@@ -58,7 +58,7 @@ class DotsAndBoxesGame(Game):
 
     def getCanonicalForm(self, board, player):
         board = np.copy(board)
-        if player == -1:
+        if player == -1:  # dots and boxes中不存在画线的颜色区别，只在分数上有区别
             # swap score
             aux = board[0, -1]
             board[0, -1] = board[1, -1]
@@ -76,7 +76,7 @@ class DotsAndBoxesGame(Game):
 
         l = []
 
-        for i in range(1, 5):
+        for _ in range(1, 5):
             horizontal = np.rot90(horizontal)
             vertical = np.rot90(vertical)
             pi_horizontal = np.rot90(pi_horizontal)

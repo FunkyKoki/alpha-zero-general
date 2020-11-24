@@ -57,7 +57,7 @@ class Game():
                         moves that are valid from the current board and player,
                         0 for invalid moves
         """
-        pass
+        pass  # 所以这是个mask吗？
 
     def getGameEnded(self, board, player):
         """

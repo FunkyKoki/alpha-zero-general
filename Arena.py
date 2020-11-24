@@ -29,7 +29,7 @@ class Arena():
 
     def playGame(self, verbose=False):
         """
-        Executes one episode of a game.
+        Executes one episode of a game.  这个函数是打一场（不是一个回合）
 
         Returns:
             either

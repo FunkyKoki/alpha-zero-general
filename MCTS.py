@@ -81,7 +81,7 @@ class MCTS():
             return -self.Es[s]
 
         if s not in self.Ps:
-            # leaf node
+            # leaf node  当前棋盘盘面之前没有见过
             self.Ps[s], v = self.nnet.predict(canonicalBoard)
             valids = self.game.getValidMoves(canonicalBoard, 1)
             self.Ps[s] = self.Ps[s] * valids  # masking invalid moves

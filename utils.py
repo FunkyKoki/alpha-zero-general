@@ -19,4 +19,4 @@ class AverageMeter(object):
 
 class dotdict(dict):
     def __getattr__(self, name):
-        return self[name]
+        return self[name]    # 妙啊，把字典的key变成了attribute，不过对于key是字符串来说，就有点丑陋了，大概
