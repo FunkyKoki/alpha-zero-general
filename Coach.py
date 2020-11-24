@@ -59,14 +59,15 @@ class Coach():
             sym = self.game.getSymmetries(canonicalBoard, pi)
             for b, p in sym:
                 trainExamples.append([b, self.curPlayer, p, None])
-
+            
+            #####  这里是训练模式与对抗模式的唯一区别，就是在训练过程种的博弈只是为了获得训练样本，因此选择的action是随机挑选的，但是依照了policy的输出概率，而在对抗模式下，只会用argmax对应的action，不会根据概率random
             action = np.random.choice(len(pi), p=pi)
             board, self.curPlayer = self.game.getNextState(board, self.curPlayer, action)
 
             r = self.game.getGameEnded(board, self.curPlayer)
 
             if r != 0:
-                return [(x[0], x[2], r * ((-1) ** (x[1] != self.curPlayer))) for x in trainExamples]
+                return [(x[0], x[2], r * ((-1) ** (x[1] != self.curPlayer))) for x in trainExamples]  ## 这里确保了输赢的分类是从同一方角度来说的（比如白方）
 
     def learn(self):
         """

@@ -49,13 +49,13 @@ class Arena():
                 self.display(board)
             action = players[curPlayer + 1](self.game.getCanonicalForm(board, curPlayer))
 
-            valids = self.game.getValidMoves(self.game.getCanonicalForm(board, curPlayer), 1)
+            valids = self.game.getValidMoves(self.game.getCanonicalForm(board, curPlayer), 1)  # 因为传入的是canonical形式的棋盘 因此palyer可直接设置为1
 
             if valids[action] == 0:
                 log.error(f'Action {action} is not valid!')
                 log.debug(f'valids = {valids}')
                 assert valids[action] > 0
-            board, curPlayer = self.game.getNextState(board, curPlayer, action)
+            board, curPlayer = self.game.getNextState(board, curPlayer, action)  # 这里如果action是最后一位（仅对于Dots and Boxes来说，别的游戏还没看）为true，则getNextState中不会执行execute_move
         if verbose:
             assert self.display
             print("Game over: Turn ", str(it), "Result ", str(self.game.getGameEnded(board, 1)))
@@ -86,6 +86,7 @@ class Arena():
             else:
                 draws += 1
 
+        # 互换先后手
         self.player1, self.player2 = self.player2, self.player1
 
         for _ in tqdm(range(num), desc="Arena.playGames (2)"):

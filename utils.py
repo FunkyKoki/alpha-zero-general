@@ -20,3 +20,4 @@ class AverageMeter(object):
 class dotdict(dict):
     def __getattr__(self, name):
         return self[name]    # 妙啊，把字典的key变成了attribute，不过对于key是字符串来说，就有点丑陋了，大概
+        # 字符串不会丑陋的，因为会自动转化过去，太神奇了，不懂为什么会这样 比如说你有个key是‘alpha’，那普通的字典查看值就要dict['alpha']，但是用了dotdict之后，就可以直接dict.alpha

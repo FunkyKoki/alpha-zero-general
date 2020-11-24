@@ -89,7 +89,7 @@ class DotsAndBoxesGame(Game):
                 pi_vertical = np.fliplr(pi_vertical)
 
                 new_board = Board(self.n)
-                new_board.pieces = np.copy(board)
+                new_board.pieces = np.copy(board)  # 分数信息在这里重新获取了
                 new_board.pieces[:self.n + 1, :self.n] = vertical
                 new_board.pieces[-self.n:, :] = horizontal
 

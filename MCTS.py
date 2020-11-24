@@ -34,7 +34,7 @@ class MCTS():
             probs: a policy vector where the probability of the ith action is
                    proportional to Nsa[(s,a)]**(1./temp)
         """
-        for i in range(self.args.numMCTSSims):
+        for _ in range(self.args.numMCTSSims):
             self.search(canonicalBoard)
 
         s = self.game.stringRepresentation(canonicalBoard)
@@ -101,9 +101,9 @@ class MCTS():
             self.Ns[s] = 0
             return -v
 
-        valids = self.Vs[s]
-        cur_best = -float('inf')
-        best_act = -1
+        valids = self.Vs[s]  # 通过保存valids，避免了重复计算
+        cur_best = -float('inf')  # ？
+        best_act = -1  # 最佳走法初始化为一个完全不成立的action，因为action不应该为-1
 
         # pick the action with the highest upper confidence bound
         for a in range(self.game.getActionSize()):
